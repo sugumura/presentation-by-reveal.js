@@ -1,7 +1,7 @@
 # Ruby on Railsで！<br>WEBアプリケーション勉強会
 2016年8月3日
 
-協力 **未来会議室** 
+協力 **未来会議室**
 
 ---
 
@@ -221,7 +221,7 @@ resources :articles # 追加
 
 # ルーティング確認
 
-`rake routes` コマンドを利用することで  
+`rake routes` コマンドを利用することで
 有効なパス一覧を表示する
 
 ```
@@ -280,7 +280,7 @@ end
 ファイルツリーで新規ファイル`new.html.erb`を作成
 
 ```
-app/views/new.html.erb
+app/views/articles/new.html.erb
 ```
 
 `/articles/new` にアクセスすると真っ白ページ
@@ -296,7 +296,7 @@ app/views/new.html.erb
   <div>
     <div><%= f.label :title %></div>
     <div><%= f.text_field :title %></div>
- 
+
     <div><%= f.label :body %></div>
     <div><%= f.text_area :body %></div>
 
@@ -403,9 +403,9 @@ CREATE TABLE "articles" (
 ```
 # app/controllers/articles_controller.rb
 def create
-    @article = Article.new(params[:article])    
+    @article = Article.new(params[:article])
     @article.save
-    
+
     # /articles/new にリダイレクト
     redirect_to @article
 end
@@ -423,7 +423,7 @@ end
 
 # 項目ホワイトリスト
 
-Mass Assignment 脆弱性への対応  
+Mass Assignment 脆弱性への対応
 送信項目を明示的に記述
 
 ```
@@ -431,7 +431,7 @@ Mass Assignment 脆弱性への対応
 def create
     @article = Article.new(article_params)
     @article.save
-    
+
     # /articles/new にリダイレクト
     redirect_to @article
 end
@@ -488,7 +488,7 @@ show.html.erbを作成
   <strong>Title:</strong>
   <%= @article.title %>
 </div>
- 
+
 <div>
   <strong>Text:</strong>
   <%= @article.body %>
@@ -529,7 +529,7 @@ end
     <th>Title</th>
     <th>Body</th>
   </tr>
- 
+
   <% @articles.each do |article| %>
     <tr>
       <td><%= article.title %></td>
@@ -551,7 +551,7 @@ end
 
 # 今回のチュートリアル
 
-実は公式のGetting Started  
+実は公式のGetting Started
 ぜひ続きを試してください
 
 [Rails をはじめよう (日本語訳)](http://railsguides.jp/getting_started.html)
@@ -567,3 +567,14 @@ end
     - バージョン管理/プロジェクト管理/コミュニケーションツール/CI
 - クラウドコンピューティング
     - AWS/GCP/Azure
+
+---
+
+# アンケート結果
+
+- 今回の続き: 10
+- Javascript: 5
+- Python: 4
+- Swift: 3
+- git: 3
+- SQL: 1
