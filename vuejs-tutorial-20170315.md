@@ -129,7 +129,7 @@ Version 2(2016年10月リリース)から仮想DOMを採用
 
 テンプレートの書き方 {{}} でプロパティ名を囲む
 
-```
+```html
 <div id="app">
   {{ message }}
 </div>
@@ -141,7 +141,7 @@ Version 2(2016年10月リリース)から仮想DOMを採用
 
 Vueインスタンスを生成
 
-```
+```js
 new Vue({
   el: '#app',
   data: {
@@ -165,7 +165,7 @@ Hello Vue!が表示される
 
 dataで指定したオブジェクトはVueがプロキシする
 
-```
+```js
 var app = new Vue({
   el: '#app',
   data: {
@@ -186,7 +186,7 @@ setInterval(function () {
 
 オブジェクトの変更を検知して表示を更新
 
-```
+```html
 <div id="app">
   {{ message + count }}
 </div>
@@ -205,13 +205,13 @@ setInterval(function () {
 
 属性を反映する
 
-```
+```html
 <div id="app2">
   <a v-bind:href="url" target="_blank">Click me</a>
 </div>
 ```
 
-```
+```js
 new Vue({
   el: '#app2',
   data: {
@@ -228,7 +228,7 @@ Note: https://jp.vuejs.org/v2/api/#v-bind
 
 配列の繰り返しを扱う
 
-```
+```html
 <div id="app3">
   <ol>
     <li v-for="item in list">
@@ -242,7 +242,7 @@ Note: https://jp.vuejs.org/v2/api/#v-bind
 
 # v-for (js)
 
-```
+```js
 new Vue({
   el: '#app3',
   data: {
@@ -261,7 +261,7 @@ new Vue({
 
 入力を反映する
 
-```
+```html
 <div id="app4">
   <p>{{ message }}</p>
   <input v-model="message">
@@ -272,7 +272,7 @@ new Vue({
 
 # v-model (js)
 
-```
+```js
 new Vue({
   el: '#app4',
   data: {
@@ -338,11 +338,11 @@ new Vue({
 
 # Inputを紐付ける
 
-```
+```html
 <input type="text" v-model="question">
 ```
 
-```
+```js
 new Vue({
   el: '#app',
   data: {
@@ -355,11 +355,11 @@ new Vue({
 
 # 送信ボタンでイベント
 
-```
+```html
 <button v-on:click="add()">送信</button>
 ```
 
-```
+```js
 data: {
   question: ''
 },
@@ -382,7 +382,7 @@ methods: {  // メソッドはmethodsに記述
 
 # APIリクエスト
 
-```
+```js
 methods: {  // メソッドはmethodsに記述
   add: function () {      
     axios.get('https://yesno.wtf/api')
@@ -397,7 +397,7 @@ methods: {  // メソッドはmethodsに記述
 
 # APIデータ
 
-```
+```json
 {
   "answer": "no",   // または "yes" 
   "forced": false,
@@ -415,7 +415,7 @@ methods: {  // メソッドはmethodsに記述
 
 src="{{item.image}}"はエラー
 
-```
+```html
 <tr>
   <td>{{item.date}}</td><!-- 日時 -->
   <td>{{item.question}}</td><!-- 質問 -->
@@ -429,7 +429,7 @@ src="{{item.image}}"はエラー
 
 # データを表示(js)
 
-```
+```js
 data: {
   item: {},
   question: ''
@@ -460,7 +460,7 @@ Note: https://jsfiddle.net/sugumura/6yo6x0L5/7/
 Vue.filterで任意のフィルターを作成<br>
 Vueを生成前(new)に追加
 
-```
+```js
 // YYYY-mm-dd HH:mm:ss
 Vue.filter('date-filter', function (val) {
   if (!val) return;
@@ -474,7 +474,7 @@ Vue.filter('date-filter', function (val) {
 
 # Dateをフォーマット表示
 
-```
+```html
 <tr>
   <td>{{item.date | date-filter}}</td><!-- 日時 -->
   <td>{{item.question}}</td><!-- 質問 -->
@@ -490,7 +490,7 @@ Vue.filter('date-filter', function (val) {
 
 # リスト表示(html)
 
-```
+```html
 <tr v-for="item in items">
   <td>{{item.date | date-filter}}</td><!-- 日時 -->
   <td>{{item.question}}</td><!-- 質問 -->
@@ -504,7 +504,7 @@ Vue.filter('date-filter', function (val) {
 
 データ保存を配列にする
 
-```
+```js
 data: {
   items: [],    // itemからitemsに変更
   question: ''
@@ -515,7 +515,7 @@ data: {
 
 # リスト表示2(js)
 
-```
+```js
 add: function() {
   var vm = this; // this参照用
   axios.get('https://yesno.wtf/api')
@@ -543,7 +543,7 @@ Note: https://jsfiddle.net/sugumura/6yo6x0L5/8/
 
 v-forを引数使いインデックスを取得する
 
-```
+```html
 <tr v-for="(item, index) in items">
   ...
   <td><button v-on:click="remove(index)">削除</button></td>
@@ -554,7 +554,7 @@ v-forを引数使いインデックスを取得する
 
 # 削除(js)
 
-```
+```js
 methods: {
   add: {
       ...
@@ -575,7 +575,7 @@ Note: https://jsfiddle.net/sugumura/6yo6x0L5/9/
 
 # 件数を表示(html)
 
-```
+```html
 <!-- 合計行 -->
 <tr>
   <td colspan="5">合計: {{total}}件</td>
@@ -589,7 +589,7 @@ Note: https://jsfiddle.net/sugumura/6yo6x0L5/9/
 件数は配列の長さ<br>
 算出プロパティを利用
 
-```
+```js
 methods: {
     ...
 },
@@ -627,6 +627,8 @@ Note: https://jsfiddle.net/sugumura/6yo6x0L5/10/
 ---
 
 # 資料
+
+- [The Progressive Framework](https://docs.google.com/presentation/d/1WnYsxRMiNEArT3xz7xXHdKeH1C-jT92VxmptghJb5Es/)
 
 - [Vue.js入門 ―最速で作るシンプルなWebアプリケーション](http://gihyo.jp/dev/serial/01/vuejs)
     - Webアプリを作る前に
