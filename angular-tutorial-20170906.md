@@ -87,7 +87,7 @@ greeter(p);
 
 TypescriptからJavascriptに変換
 
-```console
+```
 $ tsc person.ts
 # person.jsが生成される
 
@@ -100,6 +100,7 @@ Hello Taro Yamada!!
 # クラス
 
 student.tsを作成
+
 ```ts
 class Student {
     fullName: string;
@@ -123,7 +124,7 @@ console.log('' + s);
 
 TypescriptからJavascriptに変換
 
-```console
+```
 $ tsc student.ts
 # student.jsが生成される
 
