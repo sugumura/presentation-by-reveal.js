@@ -93,6 +93,7 @@ module.exports = function(grunt) {
 		connect: {
 			server: {
 				options: {
+					host: 'localhost',
 					port: port,
 					base: root,
 					livereload: true,
@@ -136,10 +137,18 @@ module.exports = function(grunt) {
 				tasks: 'css-core'
 			},
 			html: {
-				files: root.map(path => path + '/*.html')
+				// files: root.map(path => {path + '/*.html')
+				files: [
+					root + '/*.html',
+					root + '/presentation/**/*.html'
+				]
 			},
 			markdown: {
-				files: root.map(path => path + '/*.md')
+				// files: root.map(path => path + '/*.md')
+				files: [
+					root + '/*.md',
+					root + '/presentation/**/*.md'
+				]
 			},
 			options: {
 				livereload: true
