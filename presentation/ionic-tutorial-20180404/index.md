@@ -28,7 +28,7 @@
 
 ---
 
-![ionic logo landscape](/image/20180404/ionic-logo-landscape.png)
+![ionic logo landscape](../../image/20180404/ionic-logo-landscape.png)
 
 ---
 
@@ -53,7 +53,7 @@
 - プラグインを追加することで各ネイティブ機能が利用可
     - 例)カメラ, ギャラリー, 位置情報...
 
-<img src="/image/20180404/cordova_512.png" width="240" height="240">
+<img src="../../image/20180404/cordova_512.png" width="240" height="240">
 
 ---
 
@@ -267,7 +267,7 @@ export class HomePage {
 
 `ionic serve` を再実行してテスト
 
-![master detail](/image/20180404/master-detail.png)
+![master detail](../../image/20180404/master-detail.png)
 
 ---
 
@@ -461,7 +461,7 @@ APIからデータ取得後テンプレートに表示を反映
 
 # リスト表示
 
-![breed list1](/image/20180404/breed-list1.png)<!-- .element height="32%" width="32%" -->
+![breed list1](../../image/20180404/breed-list1.png)<!-- .element height="32%" width="32%" -->
 
 ---
 
@@ -469,7 +469,7 @@ APIからデータ取得後テンプレートに表示を反映
 
 Ionicではページのライフサイクルを定義
 
-![ionic view lifecycle events](/image/20180404/ionicViewLifecycleEvents.png)
+![ionic view lifecycle events](../../image/20180404/ionicViewLifecycleEvents.png)
 
 ref: [https://blog.ionicframework.com/navigating-lifecycle-events/](https://blog.ionicframework.com/navigating-lifecycle-events/)<!--- .element target="_blank" -->
 
@@ -584,7 +584,7 @@ export class BreedTilePage {
   ) {
 //...省略
   ionViewDidLoad() {
-    this.http.get<BreedImageListResponse>(`https://dog.ceo/api/breed/${this.breed}/images`)
+    this.http.get<BreedImageListResponse>(`https://dog.ceo/api/breed/${this.breed}../../images`)
     .subscribe((response) => {
       // すべて表示すると重いため10個ほど切り出す
       this.tiles = response.message.slice(0, 10);
@@ -614,7 +614,7 @@ export class BreedTilePage {
 
 # 画像表示
 
-![breed list1](/image/20180404/breed-tile1.png)<!-- .element height="32%" width="32%" -->
+![breed list1](../../image/20180404/breed-tile1.png)<!-- .element height="32%" width="32%" -->
 
 ---
 
@@ -654,7 +654,7 @@ page-breed-tile {
 
 # タイル表示（ぽい）
 
-![breed list1](/image/20180404/breed-tile2.png)<!-- .element height="32%" width="32%" -->
+![breed list1](../../image/20180404/breed-tile2.png)<!-- .element height="32%" width="32%" -->
 
 ---
 
@@ -704,7 +704,7 @@ export class BreedListPage {
 
 # 検索バー実装
 
-![breed list 2](/image/20180404/breed-list2.png)<!-- .element height="32%" width="32%" -->
+![breed list 2](../../image/20180404/breed-list2.png)<!-- .element height="32%" width="32%" -->
 
 ---
 
@@ -717,7 +717,7 @@ export class BreedListPage {
 - 初期画面ロード時にフェイクのUIを表示
 - プログレスバーやスピナーの代わりに表示
 
-![facebook](/image/20180404/facebook.png)<!-- .element height="32%" width="32%" -->
+![facebook](../../image/20180404/facebook.png)<!-- .element height="32%" width="32%" -->
 
 ref: [https://blog.ionicframework.com/improved-perceived-performance-with-skeleton-screens/](https://blog.ionicframework.com/improved-perceived-performance-with-skeleton-screens/)
 
@@ -756,7 +756,7 @@ export class BreedTilePage {
   tiles: Array<Tile> = [];
   // ...省略
   ionViewDidLoad() {
-    this.http.get<BreedImageListResponse>(`https://dog.ceo/api/breed/${this.breed}/images`)
+    this.http.get<BreedImageListResponse>(`https://dog.ceo/api/breed/${this.breed}../../images`)
     .subscribe((response) => {
       // すべて表示すると重いため10個ほど切り出す
       const arr = response.message.slice(0, 10);
@@ -797,7 +797,7 @@ export class BreedTilePage {
 
 # 結果
 
-![breed tile 3](/image/20180404/breed-tile3.png)<!-- .element height="32%" width="32%" -->
+![breed tile 3](../../image/20180404/breed-tile3.png)<!-- .element height="32%" width="32%" -->
 
 ---
 
