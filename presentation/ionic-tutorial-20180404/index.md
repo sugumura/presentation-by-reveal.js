@@ -837,7 +837,7 @@ export class BreedTilePage {
 - Stencil
     - Webコンポーネントのコンパイラ
     - 生成したWebコンポーネントをブラウザで利用可能
-    - Ionic/Angularに依存してるいわけではないs
+    - Ionic/Angularに依存していない
 - Capacitor
     - クロスプラットフォームツール
     - 既存のCordovaプラグイン互換を目指す
