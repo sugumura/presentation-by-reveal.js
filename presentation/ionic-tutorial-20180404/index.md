@@ -689,6 +689,7 @@ page-breed-tile {
 ```ts
 // pages/breed-list/breed-list.ts
 export class BreedListPage {
+  searchWord: string = '';
   // ...省略
   getList() {
     return this.list.filter(item => item.includes(this.searchWord));
