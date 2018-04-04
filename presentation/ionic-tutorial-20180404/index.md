@@ -756,7 +756,7 @@ export class BreedTilePage {
   tiles: Array<Tile> = [];
   // ...省略
   ionViewDidLoad() {
-    this.http.get<BreedImageListResponse>(`https://dog.ceo/api/breed/${this.breed}../../images`)
+    this.http.get<BreedImageListResponse>(`https://dog.ceo/api/breed/${this.breed}/images`)
     .subscribe((response) => {
       // すべて表示すると重いため10個ほど切り出す
       const arr = response.message.slice(0, 10);
