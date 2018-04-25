@@ -102,7 +102,7 @@ Rx.Observable.range(1, 100)
 
 # もうちょっと実用的な例
 
-動かしたい人は[ここから](https://stackblitz.com/edit/rxjs-mouse-sample1)エディタへ
+動かしたい人は[ここから](https://stackblitz.com/edit/rxjs-mouse-sample1)<!--- .element target="_blank" -->エディタへ
 
 ```js
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -130,6 +130,8 @@ fromEvent(document, 'mousemove')
 
 ```
 
+[ReactiveX - Debounce operator](http://reactivex.io/documentation/operators/debounce.html)<!--- .element target="_blank" -->
+
 ---
 
 # filter
@@ -150,6 +152,8 @@ fromEvent(document, 'mousemove')
   .subscribe((e) => console.log(new Date(), e.clientX, e.clientY));
 ```
 
+[ReactiveX - Filter operator](http://reactivex.io/documentation/operators/filter.html)<!--- .element target="_blank" -->
+
 ---
 
 # オペレータ
@@ -158,7 +162,7 @@ debounceやfilterをオペレータという
 オペレータを組み合わせて処理を記述していく  
 RxJS 5.5から自作オペレータも使えるように
 
-[ReactiveX - Operators](http://reactivex.io/documentation/operators.html)
+[ReactiveX - Operators](http://reactivex.io/documentation/operators.html)<!--- .element target="_blank" -->
 
 ---
 
@@ -203,7 +207,7 @@ setTimeout(() => subscription.complete(), 5000)
 いままでは1対1のストリーム処理  
 複数のObserverに対して配信する場合は`Subject`を使用
 
-[サンプル](https://stackblitz.com/edit/rxjs-subject-sample)
+[サンプル](https://stackblitz.com/edit/rxjs-subject-sample)<!--- .element target="_blank" -->
 
 ---
 
@@ -237,18 +241,16 @@ subject.complete();
 他にRxではHot/Coldといった特性や、Schedulerが学習要素としてあります  
 発展的な内容ですのでぜひ学習を進めてみてください
 
-(今回扱ったものはすべてCold特性)
-
 最後にJavascriptを利用する場合に頻出するであろうPromiseの扱いを取り上げます
 
 ---
 
 # Promise
 
-`$.ajax`や`fetch`といったPromiseを扱うオブジェクトはJavascriptで近年増加
-fromPromiseを使うことでRxに組み込み可能
+`$.ajax`や`fetch`といったPromiseを扱うオブジェクトはJavascriptで近年増加  
+`fromPromise`を使うことでRxに組み込み可能
 
-[サンプル](https://stackblitz.com/edit/rxjs-sample-promise)
+[サンプル](https://stackblitz.com/edit/rxjs-sample-promise)<!--- .element target="_blank" -->
 
 ```js
 import { fromPromise } from 'rxjs/observable/fromPromise';
@@ -267,21 +269,19 @@ fromPromise(fetch('https://dog.ceo/api/breeds/image/random'))
 
 # toPromise
 
-ストリームをPromiseに変換するには `toPromise` を使用
+ストリームをPromiseに変換するには`toPromise`を使用  
 `complete`時の値を流す
 
 ```js
 import { of } from 'rxjs/observable/of';
-import { concat } from 'rxjs/operators';
+import { concat } from 'rxjs/observable/concat';
 
 const of1$ = of(1, 2, 3);
 const of2$ = of(4, 5, 6);
 
-of1$.pipe(
-  concat(of2$),
-)
-.toPromise()
-.then((data) => console.log(data));
+concat(of1$, of2$)
+  .toPromise()
+  .then((data) => console.log(data));
 // => 6
 
 ```
@@ -290,13 +290,15 @@ of1$.pipe(
 
 # 今後の学習
 
-- [ReactiveX](http://reactivex.io/)
+- [ReactiveX](http://reactivex.io/)<!--- .element target="_blank" -->
     - 本家
     - 各オペレータには図が用意されてるので詰まった場合は参照
-- [Learn RxJS](https://www.learnrxjs.io/)
-    - オペレータが解説されてあり動かせるサンプル尽き
-- [RxのHotとColdについて](https://qiita.com/toRisouP/items/f6088963037bfda658d3)
+- [Learn RxJS](https://www.learnrxjs.io/)<!--- .element target="_blank" -->
+    - 各オペレータの動かせるサンプル尽き
+- [RxのHotとColdについて](https://qiita.com/toRisouP/items/f6088963037bfda658d3)<!--- .element target="_blank" -->
     - Hot/Coldに関してとてもわかりやすい日本語記事
+- [RxJS入門](https://booth.pm/ja/items/659290)<!--- .element target="_blank" -->
+    - 日本語の電子書籍。500円で一通り把握できる
 
 ---
 
