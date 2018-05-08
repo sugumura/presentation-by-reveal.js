@@ -61,8 +61,7 @@
 
 # 実装比較
 
-単純な例  
-(ObservableはObserverパターンでいうSubject)
+単純な処理の例
 
 ```js
 // None RxJS
@@ -202,10 +201,13 @@ setTimeout(() => subscription.complete(), 5000)
 
 ---
 
-# N Observer
+# Subject
 
-いままでは1対1のストリーム処理  
-複数のObserverに対して配信する場合は`Subject`を使用
+---
+
+# Subject
+
+Subjectを利用することで開発者が任意のタイミングでデータを流すことが可能
 
 [サンプル](https://stackblitz.com/edit/rxjs-subject-sample)<!--- .element target="_blank" -->
 
