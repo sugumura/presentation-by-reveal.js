@@ -93,7 +93,7 @@ Rx.Observable.range(1, 100)
 ```js
 // 個別インポート
 import { Observable } from ’rxjs’
-Rx.Observable.range(1, 100)
+Observable.range(1, 100)
     .subscribe(v => console.log(v));
 ```
 
