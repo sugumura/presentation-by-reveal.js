@@ -238,6 +238,24 @@ subject.complete();
 
 ---
 
+# Subject
+
+単純なSubjectの場合subscribeしていないときの値は流れません  
+(過去の値も欲しいという場合は`BehaviorSubject`や`ReplaySubject`を利用)
+
+[サンプル](https://stackblitz.com/edit/rxjs-subject-sample2)<!--- .element target="_blank" -->
+
+---
+
+# asObservable
+
+asObservableを呼び出すことでSubjectからObservableとして扱える  
+APIとしてsubscribeだけさせたい場合に
+
+[サンプル](https://stackblitz.com/edit/rxjs-subject-sample3)<!--- .element target="_blank" -->
+
+---
+
 # 基本的な知識はここまで
 
 他にRxではHot/Coldといった特性や、Schedulerが学習要素としてあります  
