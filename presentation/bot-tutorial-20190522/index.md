@@ -55,12 +55,11 @@
 
 # 前準備
 
-mirai-techサーバに参加しよう  
+自分のサーバを作成しよう
 
 - Discordアカウントを作成
-- 招待URLからサーバを追加
+- サーバを追加
 
-自分のサーバがある場合そちらを利用して良いです
 
 ---
 
@@ -78,7 +77,7 @@ mirai-techサーバに参加しよう
 
 # 前準備#3
 
-招待URL: [https://discord.gg/aFdEBby](https://discord.gg/aFdEBby)
+任意のサーバ名を入力
 
 ![pre03](../../image/20190522/pre03.png)
 
@@ -89,7 +88,7 @@ mirai-techサーバに参加しよう
 - Python 3.5.3以降
 
 Python実行環境がない方は以下のURLにアクセス  
-[https://coder.otona.pro](https://coder.otona.pro)
+[https://coder.otona.pro](https://coder.otona.pro)<!--- .element target="_blank" -->
 
 
 ---
@@ -105,6 +104,8 @@ $ python3 -m pip install -U discord.py
 # Windows
 $ py -3 -m pip install -U discord.py
 ```
+
+[https://discordpy.readthedocs.io/ja/latest/](https://discordpy.readthedocs.io/ja/latest/)<!--- .element target="_blank" -->
 
 ---
 
@@ -140,7 +141,7 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
-    print("Logged In")
+    print("ready call!")
 
 @client.event
 async def on_message(message):
@@ -158,7 +159,7 @@ client.run(TOKEN)
 
 以下のURLにアクセス
 
-[https://discordapp.com/developers/applications/](https://discordapp.com/developers/applications/)
+[https://discordapp.com/developers/applications/](https://discordapp.com/developers/applications/)<!--- .element target="_blank" -->
 
 ---
 
@@ -212,7 +213,7 @@ client.run(TOKEN)
 ```console
 $ cd [YOUR_ID]
 $ python3 bot.py 
-Logged In
+ready call!
 
 # アクション待ち
 # Ctrl+cで終了
@@ -223,6 +224,264 @@ Logged In
 # テスト
 
 ![test01](../../image/20190522/test01.png)
+
+---
+
+# BOTができた！
+
+---
+
+# 構文解説
+
+`@client.event`とか`async/await`って何？
+
+---
+
+# デコレータ#1
+
+`@client.event`のように@から始まる装飾を`デコレータ`と呼ぶ
+Pythonでは以下の種類をサポート
+
+- 関数
+- メソッド
+- クラス
+
+---
+
+# デコレータ#2
+
+デコレータはシンタックスシュガー  
+以下の2つのコードはほぼ同じ意味
+
+```
+@f1(arg)
+@f2
+def func(): pass
+```
+
+```
+def func(): pass # 違いはここでfuncが一度定義される
+func = f1(arg)(f2(func))
+```
+
+参考: [Python 言語リファレンス](https://docs.python.org/ja/3/reference/compound_stmts.html#function)<!--- .element target="_blank" -->
+
+---
+
+# デコレータ#3
+
+実行サンプル
+
+```python
+# deco.py
+def deco(func):
+    def wrapper(*args, **kwargs):
+        print('---start---')
+        func(*args, **kwargs)
+        print("---end---")
+    return wrapper
+
+@deco
+def main():
+    print('Hello Decorator')
+
+if __name__ == "__main__":
+    main()
+```
+
+参考: [Pythonのデコレータについて - Qiita](https://qiita.com/mtb_beta/items/d257519b018b8cd0cc2e)
+
+---
+
+# デコレータ#4
+
+```console
+$ python3 deco.py
+---start---
+Hello Decorator
+---end---
+```
+
+---
+
+# デコレータ#5
+
+discord.pyのソースを確認  
+@client.eventで渡した関数をdiscord.pyでプロパティに追加  
+
+```python
+class Client:
+    # 省略
+    # コメント省略
+    def event(self, coro):
+        if not asyncio.iscoroutinefunction(coro):
+            raise TypeError('event registered must be a coroutine function')
+        # setattrでプロパティに追加される
+        setattr(self, coro.__name__, coro)
+        log.debug('%s has successfully been registered as an event', coro.__name__)
+        return coro
+```
+
+
+参考: [https://github.com/Rapptz/discord.py/blob/master/discord/client.py](https://github.com/Rapptz/discord.py/blob/master/discord/client.py)
+
+
+---
+
+# async/await #1
+
+コルーチンを扱うための構文  
+ここではソースを読むための表層的な部分のみ紹介する  
+
+---
+
+# async/await #2
+
+asyncと一緒に宣言をした関数はコルーチンになる  
+通常の関数呼び出しではエラー
+
+```python
+import asyncio
+
+async def hello_world():
+    print("Hello World!")
+
+# イベントループを取得
+loop = asyncio.get_event_loop()
+# イベントループに呼び出しを任せる
+loop.run_until_complete(hello_world())
+loop.close()
+```
+
+---
+
+# async/await #3
+
+awaitを利用することでasync関数を呼び出せる
+
+```python
+import asyncio
+
+async def hello_world():
+    print("Hello World!")
+
+async def call_hello_world():
+    await hello_world()
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(call_hello_world())
+```
+
+---
+
+# async/await #4
+
+もう一度discord.pyのソースを確認  
+コルーチンを受け取ることを期待していることがわかる
+
+```python
+class Client:
+    # 省略
+    # コメント省略
+    def event(self, coro):
+        if not asyncio.iscoroutinefunction(coro):
+            raise TypeError('event registered must be a coroutine function')
+        # setattrでプロパティに追加される
+        setattr(self, coro.__name__, coro)
+        log.debug('%s has successfully been registered as an event', coro.__name__)
+        return coro
+```
+
+参考: [https://github.com/Rapptz/discord.py/blob/master/discord/client.py](https://github.com/Rapptz/discord.py/blob/master/discord/client.py)
+
+---
+
+# 休憩（質疑応答）
+
+---
+
+# おみくじを作ろう#1
+
+簡単なおみくじ機能を実装
+
+- Random機能を使って運勢を表示
+- DiscordのEmbed表示を使用
+- リアクションを使って引き直し可能
+
+---
+
+# おみくじを作ろう#2
+
+最初にシンプルなおみくじを実装してテスト
+
+```python
+import random # 読み込み追加
+
+# 省略(on_message内)
+    if message.content == '/omikuji':
+        value = await omikuji(random.randint(0, 100))
+        await message.channel.send(value)
+
+async def omikuji(num = 0):
+    if num < 10:
+        return "大吉"
+    elif 10 <= num < 30:
+        return "中吉"
+    elif 30 <= num < 60:
+        return "小吉"
+    elif 60 <= num < 80:
+        return "吉"
+    elif 80 <= num < 95:
+        return "末吉"
+    else:
+        return "凶"
+```
+
+---
+
+# おみくじを作ろう#3
+
+埋め込み形式にしよう
+
+```python
+# 省略(on_message内)
+    if message.content == '/omikuji':
+        value = await omikuji(random.randint(0, 100))
+        await send_omikuji(message.channel, message.author, value)
+
+async def send_omikuji(channel, user, value):
+    embed = discord.Embed(title="おみくじ",
+                        description=f"{user.mention}さんの今日の運勢は！",
+                        color=discord.Colour.from_rgb(255,0,0))
+    embed.set_thumbnail(url=user.avatar_url)
+    embed.add_field(name="運勢: ", value=value, inline=False)
+    await channel.send(embed=embed)
+```
+
+---
+
+# おみくじを作ろう#4
+
+リアクションを実装しよう
+
+```python
+# リアクションがあった場合に呼び出し
+@client.event
+async def on_reaction_add(reaction, user):
+    if (reaction.emoji == '⭕'):
+        value = await omikuji(random.randint(0, 100))
+        await send_omikuji(reaction.message.channel, user, value)
+
+async def send_omikuji(channel, user, value):
+    # 省略
+    embed.add_field(name="運勢: ", value=value, inline=False)
+    embed.add_field(name="もう一度?", value="⭕(:o:)をつけるともう一度くじを引きます", inline=False)
+    await channel.send(embed=embed)
+```
+
+---
+
+# 休憩（質疑応答）
 
 ---
 
