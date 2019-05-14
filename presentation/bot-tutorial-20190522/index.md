@@ -419,10 +419,10 @@ import random # 読み込み追加
 
 # 省略(on_message内)
     if message.content == '/omikuji':
-        value = await omikuji(random.randint(0, 100))
+        value = omikuji(random.randint(0, 100))
         await message.channel.send(value)
 
-async def omikuji(num = 0):
+def omikuji(num = 0):
     if num < 10:
         return "大吉"
     elif 10 <= num < 30:
@@ -446,7 +446,7 @@ async def omikuji(num = 0):
 ```python
 # 省略(on_message内)
     if message.content == '/omikuji':
-        value = await omikuji(random.randint(0, 100))
+        value = omikuji(random.randint(0, 100))
         await send_omikuji(message.channel, message.author, value)
 
 async def send_omikuji(channel, user, value):
@@ -469,7 +469,7 @@ async def send_omikuji(channel, user, value):
 @client.event
 async def on_reaction_add(reaction, user):
     if (reaction.emoji == '⭕'):
-        value = await omikuji(random.randint(0, 100))
+        value = omikuji(random.randint(0, 100))
         await send_omikuji(reaction.message.channel, user, value)
 
 async def send_omikuji(channel, user, value):
@@ -482,6 +482,44 @@ async def send_omikuji(channel, user, value):
 ---
 
 # 休憩（質疑応答）
+
+---
+
+# 簡易電卓#1
+
+- evalを使って簡易電卓
+- 公開BOTでこんな実装してはいけません
+
+あくまで機能例としてお願いします🙇
+
+---
+
+# 簡易電卓#2
+
+```python
+import re
+# 正規表現で引数を取得するための定義
+calc_pattern = re.compile('\A\/calc (.+)\Z')
+
+# 省略(on_message内)
+    result = calc_pattern.match(message.content)
+    if result:
+        exp = result.group(1)
+        res = eval(exp) # 公開BOTでevalを使わないでください
+        await message.channel.send(res)
+```
+
+---
+
+# 資料はここまで
+
+---
+
+# 自由に機能を実装してください
+
+- 他APIと連携(天気予報、カレンダー、Todo...)
+- Discordイベントの利用(参加者追加、Botへのメンション...)
+- 既存のDiscordやSlackのBotを参考に
 
 ---
 
