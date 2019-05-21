@@ -4,7 +4,7 @@
 オトナのプログラミング勉強会<br>
 協力 **未来会議室**
 
-[connpass](https://otona.connpass.com)<!--- .element target="_blank" -->
+[connpass](https://otona.connpass.com)<!--- .element target="_blank" rel="noopener" -->
 
 ---
 
@@ -17,13 +17,13 @@
 ---
 
 オトナのプログラミング勉強会<br>
-[http://otona.pro](http://otona.pro)<!--- .element target="_blank" -->
+[http://otona.pro](http://otona.pro)<!--- .element target="_blank" rel="noopener" -->
 
 - 2016年8月から開始
 - 月2回（第1水曜、第3水曜）
 - いつでも講師募集中
     - プログラム言語、機械学習、Web系...
-- [YouTube Live](https://www.youtube.com/channel/UCrXf76sF5RUKcGpMpZASqow)<!--- .element target="_blank" -->でリモート参加も振り返りも可(?)
+- [YouTube Live](https://www.youtube.com/channel/UCrXf76sF5RUKcGpMpZASqow)<!--- .element target="_blank" rel="noopener" -->でリモート参加も振り返りも可(?)
 
 ---
 
@@ -88,7 +88,7 @@
 - Python 3.5.3以降
 
 Python実行環境がない方は以下のURLにアクセス  
-[https://coder.otona.pro](https://coder.otona.pro)<!--- .element target="_blank" -->
+[https://coder.otona.pro](https://coder.otona.pro)<!--- .element target="_blank" rel="noopener" -->
 
 
 ---
@@ -97,7 +97,7 @@ Python実行環境がない方は以下のURLにアクセス
 
 discord.pyをpipでダウンロード(coderの方は必要なし)
 
-```
+```console
 # Mac or Linux
 $ python3 -m pip install -U discord.py
 
@@ -105,7 +105,7 @@ $ python3 -m pip install -U discord.py
 $ py -3 -m pip install -U discord.py
 ```
 
-[https://discordpy.readthedocs.io/ja/latest/](https://discordpy.readthedocs.io/ja/latest/)<!--- .element target="_blank" -->
+[https://discordpy.readthedocs.io/ja/latest/](https://discordpy.readthedocs.io/ja/latest/)<!--- .element target="_blank" rel="noopener" -->
 
 ---
 
@@ -159,7 +159,7 @@ client.run(TOKEN)
 
 以下のURLにアクセス
 
-[https://discordapp.com/developers/applications/](https://discordapp.com/developers/applications/)<!--- .element target="_blank" -->
+[https://discordapp.com/developers/applications/](https://discordapp.com/developers/applications/)<!--- .element target="_blank" rel="noopener" -->
 
 ---
 
@@ -264,7 +264,7 @@ def func(): pass # 違いはここでfuncが一度定義される
 func = f1(arg)(f2(func))
 ```
 
-参考: [Python 言語リファレンス](https://docs.python.org/ja/3/reference/compound_stmts.html#function)<!--- .element target="_blank" -->
+参考: [Python 言語リファレンス](https://docs.python.org/ja/3/reference/compound_stmts.html#function)<!--- .element target="_blank" rel="noopener" -->
 
 ---
 
@@ -289,7 +289,7 @@ if __name__ == "__main__":
     main()
 ```
 
-参考: [Pythonのデコレータについて - Qiita](https://qiita.com/mtb_beta/items/d257519b018b8cd0cc2e)
+参考: [Pythonのデコレータについて - Qiita](https://qiita.com/mtb_beta/items/d257519b018b8cd0cc2e)<!--- .element target="_blank" rel="noopener" -->
 
 ---
 
@@ -323,7 +323,7 @@ class Client:
 ```
 
 
-参考: [https://github.com/Rapptz/discord.py/blob/master/discord/client.py](https://github.com/Rapptz/discord.py/blob/master/discord/client.py)
+参考: [https://github.com/Rapptz/discord.py/blob/master/discord/client.py](https://github.com/Rapptz/discord.py/blob/master/discord/client.py)<!--- .element target="_blank" rel="noopener" -->
 
 
 ---
@@ -332,6 +332,10 @@ class Client:
 
 コルーチンを扱うための構文  
 ここではソースを読むための表層的な部分のみ紹介する  
+
+---
+
+
 
 ---
 
@@ -352,6 +356,8 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(hello_world())
 loop.close()
 ```
+
+参考: [python3 の async/awaitを理解する - Qiita](https://qiita.com/maueki/items/8f1e190681682ea11c98)<!--- .element target="_blank" rel="noopener" -->
 
 ---
 
@@ -392,7 +398,7 @@ class Client:
         return coro
 ```
 
-参考: [https://github.com/Rapptz/discord.py/blob/master/discord/client.py](https://github.com/Rapptz/discord.py/blob/master/discord/client.py)
+参考: [https://github.com/Rapptz/discord.py/blob/master/discord/client.py](https://github.com/Rapptz/discord.py/blob/master/discord/client.py)<!--- .element target="_blank" rel="noopener" -->
 
 ---
 
@@ -515,11 +521,29 @@ calc_pattern = re.compile('\A\/calc (.+)\Z')
 
 ---
 
-# 自由に機能を実装してください
+# 自由時間
+
+思いつくままに触ってみてください
 
 - 他APIと連携(天気予報、カレンダー、Todo...)
 - Discordイベントの利用(参加者追加、Botへのメンション...)
 - 既存のDiscordやSlackのBotを参考に
+
+---
+
+# BOT公開のために
+
+- BOT権限を最小にする
+    - 今回は管理者権限を付与。公開する場合は権限を必要なものだけに
+- HerokuやGCPの無料枠を活用しよう
+
+---
+
+# 資料
+
+- [discord.pyへようこそ。](https://discordpy.readthedocs.io/ja/latest/)<!--- .element target="_blank" rel="noopener" -->
+- [Pythonで実用Discord Bot(discordpy解説) - Qiita](https://qiita.com/1ntegrale9/items/9d570ef8175cf178468f)<!--- .element target="_blank" rel="noopener" -->
+- [Pythonにおける非同期処理: asyncio逆引きリファレンス](https://qiita.com/icoxfog417/items/07cbf5110ca82629aca0)<!--- .element target="_blank" rel="noopener" -->
 
 ---
 
