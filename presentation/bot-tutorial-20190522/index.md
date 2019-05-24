@@ -335,10 +335,6 @@ class Client:
 
 ---
 
-
-
----
-
 # async/await #2
 
 asyncと一緒に宣言をした関数はコルーチンになる  
