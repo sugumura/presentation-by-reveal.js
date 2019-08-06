@@ -27,12 +27,22 @@
 
 ---
 
-# 注意
+# 注意#1
 
 資料をMac環境で作成しているため、基本的にパス表示はMacOSXです  
 WindowsやLinux環境の方は読み替えていただくか、不明な場合は質問してください
 
 また、Docker使用中は電源アダプタの利用をおすすめします
+
+---
+
+# 注意#2
+
+Windowsの方は今回作業するドライブの共有を有効にしてください
+
+![docker-for-windows-shared-drives](../../image/20190807/docker-for-windows-shared-drives.png)<!--- .element width="50%" height="50%" -->
+
+セキュリティソフトのファイアーウォールで警告がでる場合 `10.0.75.0(デフォルト設定)` へのアクセスを許可してください
 
 ---
 
@@ -185,6 +195,9 @@ PHPのビルドインサーバを使って、 ホストのphpファイルを表�
 # 例
 $ mkdir ~/docker
 $ touch ~/docker/index.php
+
+# PowerShell (以降省略)
+> New-Item ~/docker/index.php
 ```
 
 ```
@@ -202,6 +215,9 @@ dockerを通してビルドインサーバを起動します
 ```
 $ docker run -it -p 8080:8080 -v /Users/[USERNAME]/docker:/public php:7-cli-alpine php -S 0.0.0.0:8080 -t /public
 # Ctrl+c で停止
+
+# Windowsの場合(以降省略)
+$ docker run -it -p 8080:8080 -v C:\Users\[USERNAME]\docker:/public php:7-cli-alpine php -S 0.0.0.0:8080 -t /public
 ```
 
 起動後は以下のURLでphpinfoが表示されます  
@@ -297,6 +313,18 @@ phpserver           latest               c186cf469288        51 minutes ago     
 $ docker run -p 8080:8080 phpserver
 # access to http://localhost:8080
 # Ctrl+c で停止
+```
+
+**補足**
+
+```
+# Windowsの場合Ctrl+cでコンテナが停止しないためstopコマンドを使用
+# コマンド例
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
+1c47470d6396        hello-world         "/hello"            17 minutes ago      Exited (0) 17 minutes ago                       interesting_goldwasser
+
+$ docker stop 1c47470d6396
 ```
 
 ---
@@ -718,8 +746,9 @@ EXPOSE 80
 ```
 $ docker-compose build web
 ...
-# コンテナを再起動
-$ docker-compose restart
+# コンテナを再作成
+$ docker-compose down
+$ docker-compose up -d
 ```
 
 ---
@@ -757,7 +786,8 @@ composerのインストールが終わるとパスを直接叩くことでLarave
 ApacheとPHPの設定をできるようにします
 
 ```
-$ mkdir docker/web/{sites-enabled,php}
+$ mkdir docker/web/sites-enabled
+$ mkdir docker/web/php
 $ touch docker/web/sites-enabled/000-default.conf
 $ touch docker/web/php/php.ini
 ```
