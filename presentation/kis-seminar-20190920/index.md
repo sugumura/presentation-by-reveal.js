@@ -11,7 +11,7 @@
 - 村上　卓
 - フリーランス
 
-普段はWebサイトの管理機能やiOS/Androidアプリの開発をしています
+Webサイトの管理機能やiOS/Androidアプリの開発をしています
 
 ---
 
@@ -22,6 +22,7 @@
 - イメージとコンテナ
 - Dockerを取り巻く環境
 - 利用パターン
+- 事例紹介
 
 ---
 
@@ -387,6 +388,39 @@ Googleが設計したコンテナオーケストレーションシステム
 
 ---
 
+# 事例紹介
+
+---
+
+# ワークスアプリケーションズ
+
+多数パッケージ製品の開発・保守を行っている
+
+- パッケージごとに開発検証環境が必要
+- 1つのパッケージに新バージョンの開発、旧バージョンの保守がある
+- 国内外に開発拠点があり同時に保守開発を行う
+- 複数拠点で同時に1つの環境で開発していたがバグがマージされると検証環境が止まる
+
+[Dockerの事例紹介](https://www.slideshare.net/endhrk/Docker-use-case-36473690/)<!--- .element target="_blank" rel="noopener" -->
+
+---
+
+![slideshare1.png](../../image/20190920/slideshare1.png)
+
+---
+
+![slideshare2.png](../../image/20190920/slideshare2.png)
+
+---
+
+![slideshare3.png](../../image/20190920/slideshare3.png)
+
+---
+
+![slideshare4 .png](../../image/20190920/slideshare4.png)
+
+---
+
 # 休憩
 
 質問ある方は受け付けます
@@ -439,7 +473,7 @@ Docker Hubのアカウントが必要ですが、ブラウザでDockerを利用�
 デーモンが起動していないと以下のようなエラーになります  
 infoコマンドは環境情報を表示します
 
-```
+```sh
 $ docker info
 Client:
  Debug Mode: false
@@ -455,7 +489,7 @@ ERROR: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is th
 `docker run` コマンドを使ってコンテナを起動してみます  
 コマンドを実行するとDocker HubからイメージをDLしてコンテナを起動します
 
-```
+```sh
 # docker run [イメージ名]
 $ docker run hello-world
 ```
@@ -483,7 +517,7 @@ hello-worldはDockerの実行説明を出力します
 
 `docker images` でダウンロード済みのイメージを確認できます
 
-```
+```sh
 $ docker images
 REPOSITORY          TAG                  IMAGE ID            CREATED             SIZE
 hello-world         latest               fce289e99eb9        7 months ago        1.84kB
@@ -508,7 +542,7 @@ hello-world         latest               fce289e99eb9        7 months ago       
 `docker ps --all` でコンテナの一覧を確認できます  
 --allは終了済みのコンテナを表示するため
 
-```
+```sh
 $ docker ps --all
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
 1c47470d6396        hello-world         "/hello"            17 minutes ago      Exited (0) 17 minutes ago                       interesting_goldwasser
@@ -533,7 +567,7 @@ PHPはオフィシャルでバージョンや環境別のイメージを公開�
 
 `docker pull` でDocker HubからイメージをDLします
 
-```
+```sh
 $ docker pull php:7-cli-alpine
 7-cli-alpine: Pulling from library/php
 9d48c3bd43c5: Pull complete 
@@ -550,7 +584,10 @@ $ docker pull php:7-cli-alpine
 ダウンロードしたイメージでPHPのバージョンを表示してみます
 
 ```
-# docker run [イメージ:タグ] [コンテナで実行するコマンド]
+docker run [イメージ:タグ] [コンテナで実行するコマンド]
+```
+
+```sh
 $ docker run php:7-cli-alpine php -v
 PHP 7.3.9 (cli) (built: Sep  3 2019 06:40:35) ( NTS )
 Copyright (c) 1997-2018 The PHP Group
@@ -566,7 +603,7 @@ PHPのビルドインサーバを使って、 ホストのphpファイルを表�
 任意の場所にフォルダを作成し`index.php`を配置しましょう  
 あとでフォルダの絶対パスを指定するためパスを控えててください
 
-```
+```sh
 # 例
 $ mkdir ~/docker
 $ touch ~/docker/index.php
@@ -575,7 +612,7 @@ $ touch ~/docker/index.php
 > New-Item ~/docker/index.php
 ```
 
-```
+```php
 // index.php
 <?php
 phpinfo();
@@ -588,7 +625,7 @@ phpinfo();
 ビルドインサーバのコンテナを起動します  
 dockerフォルダをpublicフォルダにマウントして公開しています
 
-```
+```sh
 $ docker run -it -p 8080:8080 -v /Users/[USERNAME]/docker:/public php:7-cli-alpine php -S 0.0.0.0:8080 -t /public
 # Ctrl+c で停止
 
@@ -631,7 +668,7 @@ Dockerfileでは以下の基本構文で仕様します
 
 ファイルを作成します
 
-```
+```sh
 $ cd ~/docker
 $ touch Dockerfile
 ```
@@ -666,10 +703,13 @@ CMD [ "php", "-S", "0.0.0.0:8080" ]
 `build` コマンドでイメージを作成します
 
 ```
+docker build --tag=[タグ名] パス
+```
+
+```sh
  $ ls
 Dockerfile index.php
 
-# docker build --tag=[タグ名] パス
 $ docker build --tag=phpserver .
 Sending build context to Docker daemon  4.608kB
 ...
@@ -696,7 +736,7 @@ php                 7-cli-alpine        49fd10364405        13 days ago         
 
 `run` コマンドでコンテナを起動します
 
-```
+```sh
 $ docker run -p 8080:8080 phpserver
 # access to http://localhost:8080
 # Ctrl+c で停止
@@ -704,13 +744,14 @@ $ docker run -p 8080:8080 phpserver
 
 **補足**
 
-```
+```sh
 # Windowsの場合Ctrl+cでコンテナが停止しないためstopコマンドを使用
 $ docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
 1c47470d6396        hello-world         "/hello"            17 minutes ago      Exited (0) 17 minutes ago                       interesting_goldwasser
 
-$ docker stop 1c47470d6396
+# docker stop [CONTAINER_ID|NAME]
+$ docker stop interesting_goldwasser
 ```
 
 ---
@@ -720,7 +761,7 @@ $ docker stop 1c47470d6396
 作成したイメージはイメージ内にファイルをコピーしています  
 新規ファイルや既存ファイルの変更を反映させる場合は再ビルドする必要があります
 
-```
+```sh
 $ echo "hello" >> echo.php
 $ docker run -p 8080:8080 phpserver
 # http://localhost:8080/echo.php is Not Found
@@ -738,7 +779,7 @@ docker buildやpullをすると `<none>` というイメージが作成される
 `<none>` は同じタグ名で新しいものができた場合に古いイメージが差し替えられてできます  
 今回は2回 `phpserver` というタグ名で作成したので `<none>` ができています
 
-```
+```sh
 $ docker images
 REPOSITORY          TAG                  IMAGE ID            CREATED              SIZE
 phpserver           latest               c186cf469288        About a minute ago   79.3MB
@@ -756,7 +797,7 @@ phpserver           latest               c186cf469288        About a minute ago 
 この場合は再ビドルは必要ありません  
 用途に合わせて使いこなしましょう
 
-```
+```sh
 $ docker run -p 8080:8080 -v /Users/[USERNAME]/docker:/public phpserver
 ```
 
@@ -850,7 +891,7 @@ MySQLのバージョンや環境変数の設定などはURLから確認できま
 
 また、MySQLのWebクライアントとしてAdminerを入れて同時に実行します
 
-```
+```sh
 $ mkdir ~/lamp && cd ~/lamp
 $ touch docker-compose.yml
 ```
@@ -861,7 +902,7 @@ $ touch docker-compose.yml
 
 環境変数にrootユーザのパスワードと、初回起動時に作成するDB名を記述しています
 
-```
+```yaml
 # docker-compose.yml
 version: '3.7'
 services:
@@ -892,7 +933,7 @@ services:
 `docker-compose up` コマンドを使用してイメージをダウンロードしてコンテナを起動します  
 `-d` オプションを渡すことでバックグランドで起動します
 
-```
+```sh
 $ docker-compose up -d
 Creating network "lamp_default" with the default driver
 Pulling db (mysql:8.0.17)...
@@ -929,7 +970,7 @@ Adminerを通してMySQLの接続を試します
 `down` コマンドを使用することで起動中のコンテナを破棄できます  
 仮に現在の設定でMySQLにデータを保存していた場合、全て **破棄** されます
 
-```
+```sh
 $ docker-compose down
 ```
 
@@ -949,7 +990,7 @@ DBのデータがなくなると困るため今回はDocker Volumeで永続化�
 Docker Volumeはコンテナとは別に管理されるもので、コンテナが削除されても影響されません  
 Docker Volumeは `docker volume ls` コマンドで見ることができます
 
-```
+```sh
 $ docker volume ls
 DRIVER              VOLUME NAME
 local               3e7fe090d4ca063...
@@ -961,7 +1002,7 @@ local               3e7fe090d4ca063...
 
 `docker-compose.yml` を編集します
 
-```yml
+```yaml
 # docker-compose.yml
 version: '3.7'
 services:
@@ -987,7 +1028,7 @@ volumes:
 
 再度 `up` コマンドを実行するとVolumeが作成されて永続化されます
 
-```
+```sh
 $ docker-compose up -d
 Creating network "lamp_default" with the default driver
 Creating volume "lamp_data" with default driver
@@ -1002,7 +1043,7 @@ Creating volume "lamp_data" with default driver
 
 docker用の設定フォルダを作成します
 
-```
+```sh
 $ mkdir -p docker/db/conf.d
 $ touch docker/db/conf.d/my.cnf
 ```
@@ -1019,7 +1060,7 @@ default_authentication_plugin=mysql_native_password
 
 dbサービスからcommandを削除して、volumeで設定を読み込めるようにします
 
-```yml
+```yaml
 # docker-compose.yml
 db:
     image: mysql:8.0.17
@@ -1045,7 +1086,7 @@ db:
 コンテナを再起動して動作に問題ないか確認してください  
 `docker-compose ps` コマンドでコンテナの状態が表示されます
 
-```
+```sh
 $ docker-compose down
 $ docker-compose up -d
 $ docker-compose ps
@@ -1074,7 +1115,7 @@ PHPイメージを元にDockerfileで環境を整える必要があります
 
 Dockerfileを元にコンテナを起動できるようにします
 
-```
+```sh
 $ mkdir docker/web
 $ touch docker/web/Dockerfile
 ```
@@ -1092,7 +1133,7 @@ EXPOSE 80
 
 `docker-compose.yml` にwebサービスを追加します
 
-```yml
+```yaml
 # docker-compose
 services:
   web:
@@ -1115,7 +1156,7 @@ services:
 
 起動するとDockerfileをビルドして実行します
 
-```
+```sh
 $ docker-compose down
 $ docker-compose up -d
 Creating network "lamp_default" with the default driver
@@ -1148,7 +1189,7 @@ Apacheが実行できているか確認します
 表示用にHTMLを作成しましょう  
 ホストのカレントディレクトリが公開フォルダにマウントされていることがわかります
 
-```
+```sh
 $ echo "<h1>Hello</h1>" >> index.html
 ```
 
@@ -1185,7 +1226,7 @@ EXPOSE 80
 
 イメージを再ビルドします
 
-```
+```sh
 $ docker-compose build web
 ...
 
@@ -1201,7 +1242,7 @@ $ docker-compose up -d
 composerが使えるようになったので、Lumenのプロジェクトを作成します
 `docker-compose exec [サービス名]` で起動中のコンテナでコマンド実行できます
 
-```
+```sh
 $ docker-compose exec web composer create-project --prefer-dist laravel/lumen sample
 Do not run Composer as root/super user! See https://getcomposer.org/root for details
 Installing laravel/lumen (v6.0.0)
@@ -1228,7 +1269,7 @@ composerのインストールが終わるとパスを直接叩くことでファ
 
 ApacheとPHPの設定をできるようにします
 
-```
+```sh
 $ mkdir docker/web/sites-enabled
 $ mkdir docker/web/php
 $ touch docker/web/sites-enabled/000-default.conf
@@ -1254,7 +1295,7 @@ DocumentRootをLumenのpublicフォルダにします
 </VirtualHost>
 ```
 
-```yml
+```yaml
 # docker-compose.yml
 web:
   volumes: # ./:/var/www/htmlから書き換え
@@ -1288,7 +1329,7 @@ EXPOSE 80
 
 ビルドして再起動します
 
-```
+```sh
 $ docker-compose build web
 $ docker-compose down
 $ docker-compose up -d
@@ -1322,7 +1363,7 @@ DB_PASSWORD=password
 
 マイグレーションをします
 
-```
+```sh
 # postsテーブルを作成
 $ docker-compose exec web php artisan make:migration create_posts_table --create=posts
 Created Migration: 2019_09_17_173710_create_posts_table
@@ -1356,9 +1397,9 @@ php-fpmとapacheイメージを個別に使って構築するものもあれば�
 
 # 後始末
 
-今回ダウンロードしたイメージやコンテナで容量を使用するため、不要な場合は削除してください
+今回ダウンロードしたイメージやコンテナで容量を使用するため、不要な場合は削除してください
 
-```
+```sh
 # コンテナ一覧
 $ docker ps -a
 # コンテナ削除
