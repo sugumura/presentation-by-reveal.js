@@ -33,8 +33,6 @@
 
 # Discord
 
-![logo](https://discordapp.com/assets/fc0b01fe10a0b8c602fb0106d8189d9b.png)
-
 - ゲーマー向けボイス＆テキストチャット
 - 自分でサーバを立ててチャンネルを作成
 - Steamなどのゲームプラットフォームの連携がすごい
