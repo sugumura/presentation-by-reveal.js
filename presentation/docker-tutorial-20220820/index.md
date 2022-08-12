@@ -4,7 +4,7 @@
 オトナのプログラミング勉強会<br>
 協力 **XOSS POINT**
 
-[connpass](https://otona.connpass.com)<!--- .element target="_blank" rel="noopener" -->
+[connpass](https://otona.connpass.com/event/257264/)<!--- .element target="_blank" rel="noopener" -->
 
 ---
 
