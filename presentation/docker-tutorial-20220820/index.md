@@ -388,7 +388,7 @@ $ echo "hello" >> echo.php
 $ docker run -p 8080:8080 phpserver
 # http://localhost:8080/echo.php is Not Found
 
-$ docker container build --tag=phpserver .
+$ docker image build --tag=phpserver .
 $ docker container run -p 8080:8080 phpserver
 # http://localhost:8080/echo.php is OK
 ```
